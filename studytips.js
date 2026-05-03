@@ -1,10 +1,4 @@
-// ═══════════════════════════════════════════════════════════
-//  studytips.js  —  DB version
-//  Tip content stays in JS (no DB needed for static tips).
-//  Only FAVOURITES are saved to the database via tips.php
-// ═══════════════════════════════════════════════════════════
-
-// ── TIP DATA (unchanged from your original studytips.js) ──────
+// ── TIP DATA () ──────
 const TIPS = [
   // FOCUS
   {
@@ -62,7 +56,7 @@ const TIPS = [
     <ul>
       <li>Set a timer for exactly 25 minutes and work on one task only.</li>
       <li>When the timer rings, stop — even mid-sentence — and take 5 minutes off.</li>
-      <li>After 4 rounds, take a longer break (15–30 minutes).</li>
+      <li>After 4 rounds, take a longer break (15-30 minutes).</li>
       <li>Use the Focus Timer on your Dashboard to track sessions.</li>
     </ul>`
   },
@@ -82,7 +76,7 @@ const TIPS = [
     short:"Give yourself personal deadlines earlier than the real ones — Parkinson's Law says work expands to fill time.",
     detail:`<p><strong>Parkinson's Law:</strong> "Work expands to fill the time allotted."</p>
     <ul>
-      <li>Set personal deadlines 1–2 days before the real deadline.</li>
+      <li>Set personal deadlines 1-2 days before the real deadline.</li>
       <li>Use countdown timers to create urgency.</li>
       <li>Break large tasks into smaller milestones with their own deadlines.</li>
       <li>Share your deadlines with a friend for accountability.</li>
@@ -93,7 +87,7 @@ const TIPS = [
     short:'Assign specific hours of the day to specific subjects — treat them like appointments.',
     detail:`<p>Time blocking prevents the feeling of "I studied all day but got nothing done."</p>
     <ul>
-      <li>Block 9–11am for your hardest subject when your energy is highest.</li>
+      <li>Block 9-11am for your hardest subject when your energy is highest.</li>
       <li>Reserve evenings for lighter review or reading.</li>
       <li>Include buffer blocks for unexpected tasks.</li>
       <li>Protect your blocked time fiercely — reschedule, don't cancel.</li>
@@ -172,7 +166,7 @@ const TIPS = [
     detail:`<p>During sleep, your brain consolidates memories and transfers learning into long-term storage.</p>
     <ul>
       <li>Aim for 8 hours the night before an exam — non-negotiable.</li>
-      <li>Avoid all-nighters; sleep-deprived performance drops 20–40%.</li>
+      <li>Avoid all-nighters; sleep-deprived performance drops 20-40%.</li>
       <li>Review key notes 30 minutes before bed — your brain processes them during sleep.</li>
     </ul>`
   },
