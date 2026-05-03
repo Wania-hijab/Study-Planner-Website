@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard – StudyPlanner</title>
+
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="floating-shapes">
+  <span class="shape s1"></span>
+  <span class="shape s2"></span>
+  <span class="shape s3"></span>
+</div>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-image">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="user">
+    </div>
+    <h2 class="logo">StudyPlanner</h2>
+    <ul class="menu">
+      <li class="active"><i class="fa-solid fa-house"></i> Dashboard</li>
+      <li onclick="location.href='taskdesign.html'"><i class="fa-solid fa-list-check"></i> Tasks</li>
+      <li onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-line"></i> Analytics</li>
+      <li onclick="location.href='notes.html'"><i class="fa-solid fa-note-sticky"></i> Notes</li>
+      <li onclick="location.href='studytips.html'"><i class="fa-solid fa-lightbulb"></i> Study Tips</li>
+      <li onclick="location.href='profile.html'"><i class="fa-solid fa-user"></i> My Profile</li>
+      <li class="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Stay focused and productive 🚀</p>
+      </div>
+      <div class="search-box">
+        <i class="fa fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search tasks or subjects..." oninput="filterRecentTasks()">
+      </div>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="cards">
+      <div class="card blue">
+        <i class="fa-solid fa-list"></i>
+        <h3 id="totalCount">0</h3>
+        <p>Total Tasks</p>
+      </div>
+      <div class="card green">
+        <i class="fa-solid fa-check"></i>
+        <h3 id="completedCount">0</h3>
+        <p>Completed</p>
+      </div>
+      <div class="card orange">
+        <i class="fa-solid fa-clock"></i>
+        <h3 id="pendingCount">0</h3>
+        <p>Pending</p>
+      </div>
+      <div class="card purple">
+        <i class="fa-solid fa-book"></i>
+        <h3 id="subjectCount">0</h3>
+        <p>Subjects</p>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- LEFT -->
+      <div class="left">
+
+        <div class="row-top">
+
+          <!-- PROGRESS -->
+          <div class="box">
+            <h2>Progress Tracker</h2>
+            <p id="progressLabel">0% Completion</p>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+          </div>
+
+          <!-- FOCUS TIMER -->
+          <div class="box timer">
+            <h3>Focus Timer</h3>
+            <h2 id="timerDisplay">25:00</h2>
+
+            <!-- Duration Selector -->
+            <div id="timerSetup" style="margin-bottom:10px;">
+              <select id="timerDuration" style="padding:6px 10px; border-radius:10px; border:2px solid #e5e9ff; font-size:13px; outline:none; cursor:pointer;">
+                <option value="25">25 min</option>
+                <option value="30">30 min</option>
+                <option value="45">45 min</option>
+                <option value="60">60 min</option>
+                <option value="5">5 min (test)</option>
+              </select>
+            </div>
+
+            <!-- Timer Controls -->
+            <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+              <button id="startPauseBtn" onclick="toggleTimer()"
+                style="padding:11px 20px; border-radius:50px; border:none; background:#4a6cf7; color:white; font-size:13px; font-weight:700; cursor:pointer; transition:0.25s; display:flex; align-items:center; gap:6px;">
+                <i class="fa-solid fa-play"></i> Start
+              </button>
+              <button onclick="stopTimer()"
+                style="padding:11px 18px; border-radius:50px; border:none; background:#e74c3c; color:white; font-size:13px; font-weight:700; cursor:pointer; transition:0.25s;">
+                <i class="fa-solid fa-stop"></i>
+              </button>
+              <button onclick="restartTimer()"
+                style="padding:11px 18px; border-radius:50px; border:none; background:#f39c12; color:white; font-size:13px; font-weight:700; cursor:pointer; transition:0.25s;">
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
+            </div>
+
+            <p id="timerStatus" style="font-size:12px; color:#aaa; margin-top:10px;">Ready to focus</p>
+          </div>
+
+        </div>
+
+        <!-- RECENT TASKS -->
+        <div class="box">
+          <h2>Recent Tasks</h2>
+          <div id="recentTasksList">
+            <p style="color:#aaa; font-size:14px; text-align:center; padding:20px 0;">No tasks yet. <a href="taskdesign.html" style="color:#4a6cf7;">Add some →</a></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: CALENDAR -->
+      <div class="right">
+        <div class="box calendar">
+
+          <!-- Calendar Header -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <button onclick="changeMonth(-1)" style="background:none; border:none; font-size:18px; cursor:pointer; color:#2f4ea2; padding:4px 8px; border-radius:8px; transition:0.2s;" onmouseover="this.style.background='#eef2ff'" onmouseout="this.style.background='none'">&#8249;</button>
+            <h2 id="calendarTitle" style="margin:0; font-size:16px; color:#1e3c72;"></h2>
+            <button onclick="changeMonth(1)"  style="background:none; border:none; font-size:18px; cursor:pointer; color:#2f4ea2; padding:4px 8px; border-radius:8px; transition:0.2s;" onmouseover="this.style.background='#eef2ff'" onmouseout="this.style.background='none'">&#8250;</button>
+          </div>
+
+          <!-- Day headers -->
+          <div class="days">
+            <span>S</span><span>M</span><span>T</span>
+            <span>W</span><span>T</span><span>F</span><span>S</span>
+          </div>
+
+          <!-- Date grid -->
+          <div class="dates" id="calendarDates"></div>
+
+          <div class="cal-legend-wrap" style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; font-size:11px; font-weight:600; color:#555;">
+            <span style="display:flex;align-items:center;gap:5px;"><span class="cal-legend-completed" style="width:12px;height:12px;border-radius:4px;background:#d1fae5;border:1px solid #2ecc71;display:inline-block;"></span>Completed</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span class="cal-legend-pending" style="width:12px;height:12px;border-radius:4px;background:#dbeafe;border:1px solid #4a6cf7;display:inline-block;"></span>Pending</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span class="cal-legend-missed" style="width:12px;height:12px;border-radius:4px;background:#fee2e2;border:1px solid #e74c3c;display:inline-block;"></span>Missed</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span class="cal-legend-today" style="width:12px;height:12px;border-radius:4px;border:2.5px solid #4a6cf7;display:inline-block;"></span>Today</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- end .content -->
+  </div><!-- end .main -->
+</div><!-- end .dashboard -->
+
+<style>
+/* ── RECENT TASK ROWS ─────────────────────── */
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f2ff;
+  font-size: 14px;
+}
+.task-row:last-child { border-bottom: none; }
+.task-row span { font-weight: 600; color: #333; }
+.task-row small { font-size: 12px; color: #aaa; }
+.badge {
+  padding: 4px 11px; border-radius: 20px; font-size: 11px; font-weight: 700;
+}
+.badge-completed { background:#d1fae5; color:#065f46; }
+.badge-pending   { background:#fff3cd; color:#92400e; }
+.badge-missed    { background:#fee2e2; color:#991b1b; }
+
+/* ── CALENDAR DATE CELLS ─────────────────── */
+.cal-day {
+  padding: 10px 6px;
+  background: #eef2ff;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  cursor: default;
+  position: relative;
+  transition: 0.2s;
+  min-height: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+/* Task status colors — applied via JS */
+.cal-day.has-completed { background: #d1fae5; color: #065f46; }
+.cal-day.has-pending   { background: #dbeafe; color: #1e40af; }
+.cal-day.has-missed    { background: #fee2e2; color: #991b1b; }
+
+/* Today: ring highlight only — keeps text readable over any status color */
+.cal-day.today {
+  outline: 3px solid #4a6cf7;
+  outline-offset: -2px;
+  font-weight: 800;
+}
+
+.cal-day.empty { background: transparent; outline: none; }
+
+/* No dots needed anymore — cell color carries the meaning */
+.dots-row { display: none; }
+
+/* Tooltip */
+.cal-day:hover .cal-tooltip { display: block; }
+.cal-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e3c72;
+  color: white;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  z-index: 99;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.cal-tooltip::after {
+  content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+  border:5px solid transparent; border-top-color:#1e3c72;
+}
+</style>
+
+<!-- 🔊 TIMER START SOUND -->
+<audio id="startSound" src="sound.mpeg" preload="auto"></audio>
+
+<script src="api.js"></script>        
+<script src="theme.js"></script>
+<script src="dashboard.js"></script>
+
+</body>
+</html>
