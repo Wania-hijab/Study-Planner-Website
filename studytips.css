@@ -1,0 +1,342 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(120deg, #eef2ff, #f8faff);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR (UNCHANGED STYLE)
+========================= */
+.sidebar {
+    width: 240px;
+    background: linear-gradient(180deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 25px;
+}
+
+.sidebar-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.sidebar-image img {
+    width: 75px;
+    border-radius: 50%;
+    background: white;
+    padding: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.sidebar h2 {
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.menu li {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.menu li:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.menu .active {
+    background: white;
+    color: #1e3c72;
+    font-weight: 600;
+}
+
+/* =========================
+   MAIN
+========================= */
+.main {
+    flex: 1;
+    padding: 25px;
+}
+
+/* TOPBAR */
+.topbar h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #1e3c72;
+    font-weight: 700;
+}
+
+.topbar p {
+    color: #666;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* =========================
+   FEATURED SECTION
+========================= */
+.featured {
+    margin-top: 20px;
+    height: 180px;
+    border-radius: 18px;
+    background: url("https://images.unsplash.com/photo-1513258496099-48168024aec0") center/cover;
+    overflow: hidden;
+}
+
+.overlay {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    height: 100%;
+    padding: 25px;
+}
+
+/* =========================
+   SEARCH BOX
+========================= */
+.search-box {
+    margin-top: 20px;
+    background: white;
+    padding: 12px 18px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    margin-bottom: 16px;
+}
+.search-box input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
+    background: transparent;
+    color: #333;
+}
+
+/* =========================
+   FILTERS
+========================= */
+.filters button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+    background: #eef2ff;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.filters button:hover {
+    transform: translateY(-2px);
+}
+
+.filters .active {
+    background: #1e3c72;
+    color: white;
+}
+
+/* =========================
+   GRID
+========================= */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+/* =========================
+   CARD DESIGN
+========================= */
+.tip-card {
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.tip-card:hover {
+    transform: translateY(-6px);
+}
+
+/* =========================
+   CARD TEXT (BLACK FIX)
+========================= */
+.tip-card h3 {
+    color: #111827;
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.tip-card p {
+    color: #1f2937;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.tip-card i {
+    color: #111827;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+/* =========================
+   SOFT AESTHETIC COLORS
+========================= */
+
+.blue   { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+.purple { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+.violet { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); }
+.rose   { background: linear-gradient(135deg, #ffe4e6, #fecdd3); }
+.green  { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+.orange { background: linear-gradient(135deg, #ffedd5, #fed7aa); }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .tips-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
+   FLOATING BACKGROUND SHAPES
+========================= */
+.floating-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* base shape style */
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    animation: float 10s infinite ease-in-out;
+}
+
+/* individual shapes */
+.s1 {
+    width: 220px;
+    height: 220px;
+    background: #4a6cf7;
+    top: 10%;
+    left: 5%;
+    animation-duration: 12s;
+}
+
+.s2 {
+    width: 180px;
+    height: 180px;
+    background: #22c55e;
+    top: 20%;
+    right: 10%;
+    animation-duration: 15s;
+}
+
+.s3 {
+    width: 250px;
+    height: 250px;
+    background: #a855f7;
+    bottom: 10%;
+    left: 20%;
+    animation-duration: 18s;
+}
+
+/* floating animation */
+@keyframes float {
+    0% {
+        transform: translateY(0px) translateX(0px);
+    }
+    50% {
+        transform: translateY(-25px) translateX(20px);
+    }
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+}
+
+/* =========================
+   DARK MODE GLOBAL TEXT FIX
+========================= */
+
+[data-theme="dark"] {
+    color: #e5e7eb;
+}
+
+/* Cards (Study Tips) */
+[data-theme="dark"] .tip-card,
+[data-theme="dark"] .tip-card h3,
+[data-theme="dark"] .tip-card p,
+[data-theme="dark"] .tip-card i {
+    color: #f9fafb;
+}
+
+/* Table text */
+[data-theme="dark"] table,
+[data-theme="dark"] th,
+[data-theme="dark"] td {
+    color: #e5e7eb;
+}
+
+/* Inputs */
+[data-theme="dark"] input,
+[data-theme="dark"] select {
+    color: #fff;
+    background: #1f2937;
+}
+
+/* Placeholder fix */
+[data-theme="dark"] input::placeholder {
+    color: #9ca3af;
+}
+
+/* =========================
+   FIX: CARD TEXT VISIBILITY IN DARK MODE
+========================= */
+
+[data-theme="dark"] .tip-card {
+    color: #111827 !important;
+}
+
+[data-theme="dark"] .tip-card h3,
+[data-theme="dark"] .tip-card p,
+[data-theme="dark"] .tip-card i {
+    color: #111827 !important;
+}
