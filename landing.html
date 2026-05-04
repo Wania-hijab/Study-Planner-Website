@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyPlanner | Smart Student Productivity</title>
+
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="landing.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script>
+(function(){
+  if(localStorage.getItem('sp_public_dark')==='1')
+    document.documentElement.setAttribute('data-theme','dark');
+})();
+</script>
+</head>
+
+<body>
+
+<!-- FLOATING BACKGROUND -->
+<div class="floating-shapes">
+    <span class="shape s1"></span>
+    <span class="shape s2"></span>
+    <span class="shape s3"></span>
+    <span class="shape s4"></span>
+    <span class="shape s5"></span>
+
+    <!-- NEW SHAPES -->
+    <span class="shape s6"></span>
+    <span class="shape s7"></span>
+    <span class="shape s8"></span>
+    <span class="shape s9"></span>
+    <span class="shape s10"></span>
+</div>
+
+<!-- STUDY ICONS -->
+<div class="floating-icons">
+    <i class="fa-solid fa-book icon i1"></i>
+    <i class="fa-solid fa-pen icon i2"></i>
+    <i class="fa-solid fa-chart-line icon i3"></i>
+    <i class="fa-solid fa-clock icon i4"></i>
+    <i class="fa-solid fa-note-sticky icon i5"></i>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar glass">
+    <h2 class="logo">StudyPlanner</h2>
+
+    <ul class="menu">
+        <li><a href="landing.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        
+    </ul>
+
+    <div class="nav-btns">
+        <button class="btn-outline" onclick="location.href='login.html'">Login</button>
+        <button class="btn-primary" onclick="location.href='signup.html'">Sign Up</button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-left">
+        <h1>The Ultimate <span>Student Productivity Tool</span></h1>
+
+        <p>
+            Plan smarter, stay focused, and never miss deadlines again.
+            Your complete study system: tasks, notes, analytics & more.
+        </p><br>
+
+        <div class="cta">
+            <button class="btn-primary big" onclick="location.href='signup.html'">Get Started Free</button>
+            <button class="btn-glass" onclick="location.href='dashboard.html'">Live Demo</button>
+        </div>
+    </div>
+
+    <div class="hero-right">
+        <div class="box floating-card">
+            <h3>Today's Focus</h3>
+            <p>📘 Data Structures</p>
+        </div>
+
+        <div class="box floating-card delay">
+            <h3>Tasks Done</h3>
+            <p>15 / 25 ✔</p>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <h2>Everything You Need in One Place</h2>
+
+    <div class="feature-grid">
+        <div class="card blue">
+            <i class="fa-solid fa-list-check"></i>
+            <h3>Task Manager</h3>
+            <p>Organize assignments and deadlines easily</p>
+        </div>
+
+        <div class="card green">
+            <i class="fa-solid fa-clock"></i>
+            <h3>Focus Timer</h3>
+            <p>Stay productive using Pomodoro technique</p>
+        </div>
+
+        <div class="card purple">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Analytics</h3>
+            <p>Track your study performance visually</p>
+        </div>
+
+        <div class="card orange">
+            <i class="fa-solid fa-note-sticky"></i>
+            <h3>Notes</h3>
+            <p>Save important study notes quickly</p>
+        </div>
+    </div>
+</section>
+
+<!-- PROBLEM VS SOLUTION -->
+<section class="problem">
+    <div class="problem-left box">
+        <h3>😓 The Problem</h3>
+        <p>❌ "My schedule is all over the place"</p>
+        <p>❌ "I forget deadlines constantly"</p>
+        <p>❌ "Using too many apps"</p>
+        <p>❌ "No focus while studying"</p>
+        <p>❌ "Study routine is inconsistent"</p>
+    </div>
+
+    <div class="problem-right box">
+        <h3>✅ Our Solution</h3>
+        <p>✔ Smart structured planner</p>
+        <p>✔ Automatic reminders</p>
+        <p>✔ All-in-one dashboard</p>
+        <p>✔ Built-in focus tools</p>
+        <p>✔ Clean productivity workflow</p>
+    </div>
+</section>
+
+<!-- MOBILE -->
+<section class="mobile-section">
+    <div class="mobile-left">
+        <img src="https://cdn.dribbble.com/userupload/28715453/file/original-6cc3e5e5e2d0b1f8eebdfdcbaf6c4df4.png">
+    </div>
+
+    <div class="mobile-right">
+        <div class="step">
+            <span>1</span>
+            <div>
+                <h3>Get Organized</h3>
+                <p>Plan tasks, exams, and schedules clearly in one place.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span>2</span>
+            <div>
+                <h3>Stay Ahead</h3>
+                <p>Track progress and manage workload with clarity.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span>3</span>
+            <div>
+                <h3>Work Productively</h3>
+                <p>Use focus tools to boost productivity and reduce stress.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="visual-area">
+    <i class="fa-solid fa-book v1"></i>
+    <i class="fa-solid fa-clock v2"></i>
+    <i class="fa-solid fa-chart-line v3"></i>
+    <i class="fa-solid fa-bell v4"></i>
+</div>
+
+  
+
+</section>
+
+
+
+<section class="testimonials">
+
+    <h2>Why Students Love StudyPlanner 💙</h2>
+
+    <div class="testi-grid">
+
+        <div class="testi-card">
+            <p>"I finally stopped missing deadlines. Everything is in one place now."</p>
+            <h4>— Ayesha, CS Student</h4>
+        </div>
+
+        <div class="testi-card">
+            <p>"The focus timer actually improved my study routine a lot."</p>
+            <h4>— Hamza, Engineering</h4>
+        </div>
+
+        <div class="testi-card">
+            <p>"Simple, clean, and super helpful. Best planner I’ve used."</p>
+            <h4>— Ali, University Student</h4>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="cta-box">
+        <h2>Start Your Smart Study Journey Today 🚀</h2>
+        <button class="btn-primary big" onclick="location.href='signup.html'">Sign Up Now</button>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>© 2026 StudyPlanner | All Rights Reserved</p>
+</footer>
+
+<!-- DARK MODE TOGGLE (public pages only) -->
+<button id="publicDarkBtn" onclick="togglePublicDark()" title="Toggle dark mode" style="
+  position:fixed; top:18px; right:22px; z-index:9999;
+  width:42px; height:42px; border-radius:50%; border:none;
+  background:rgba(255,255,255,0.85); backdrop-filter:blur(8px);
+  box-shadow:0 4px 14px rgba(0,0,0,0.15); cursor:pointer;
+  font-size:17px; display:flex; align-items:center; justify-content:center;
+  transition:0.25s;">🌙</button>
+
+<script src="landing.js"></script>
+
+</body>
+</html>
