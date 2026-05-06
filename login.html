@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login – StudyPlanner</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="theme.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Segoe UI",Arial,sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  background:url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f")center/cover no-repeat;
+}
+.overlay{position:fixed;inset:0;background:linear-gradient(135deg,rgba(58,91,160,0.78),rgba(45,78,162,0.68));z-index:0;}
+.login-card{
+  position:relative;z-index:1;
+  width:90%;max-width:340px;padding:32px 28px;
+  border-radius:20px;background:rgba(255,255,255,0.94);
+  backdrop-filter:blur(12px);box-shadow:0 24px 60px rgba(0,0,0,0.28);
+  animation:cardIn 0.4s ease;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+.login-card h2{text-align:center;color:#2d4ea2;margin-bottom:5px;font-size:24px;}
+.subtitle{text-align:center;color:#888;font-size:13px;margin-bottom:22px;}
+label{display:block;margin-top:14px;font-size:13px;font-weight:600;color:#444;}
+.input-wrap{
+  position:relative;margin:7px 0 0;display:flex;align-items:center;
+  border:1.5px solid #e0e6f5;border-radius:12px;
+  background:#f5f7ff;overflow:hidden;transition:0.2s;
+}
+.input-wrap:focus-within{border-color:#3a5ba0;background:white;box-shadow:0 0 0 3px rgba(58,91,160,0.12);}
+.input-wrap input{flex:1;border:none;outline:none;padding:12px 14px;font-size:14px;font-family:inherit;background:transparent;color:#333;}
+.eye{background:none;border:none;cursor:pointer;padding:0 12px;color:#bbb;font-size:14px;transition:0.2s;}
+.eye:hover{color:#3a5ba0;}
+.err{font-size:12px;color:#e74c3c;margin-top:5px;display:none;}
+.btn{
+  width:100%;padding:13px;margin-top:22px;
+  background:linear-gradient(135deg,#3a5ba0,#2d4ea2);
+  color:white;border:none;border-radius:13px;cursor:pointer;
+  font-size:15px;font-weight:700;font-family:inherit;
+  box-shadow:0 6px 20px rgba(45,78,162,0.35);transition:0.25s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(45,78,162,0.45);}
+.btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.spinner{width:17px;height:17px;border:3px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.links{text-align:center;margin-top:18px;font-size:13px;color:#666;}
+.links a{color:#3a5ba0;font-weight:700;text-decoration:none;}
+.links a:hover{text-decoration:underline;}
+.back-home{margin-top:16px;position:relative;z-index:1;}
+.back-home a{font-size:12px;color:rgba(255,255,255,0.75);text-decoration:none;}
+.back-home a:hover{color:white;}
+</style>
+</head>
+<body>
+<div class="overlay"></div>
+<div class="login-card">
+  <h2>Welcome Back 👋</h2>
+  <p class="subtitle">Sign in to your StudyPlanner account</p>
+
+  <label>Username</label>
+  <div class="input-wrap">
+    <input type="text" id="loginUsername" placeholder="Enter your username" autocomplete="username">
+  </div>
+  <p class="err" id="usernameErr">Please enter your username.</p>
+
+  <label>Password</label>
+  <div class="input-wrap">
+    <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+    <button class="eye" onclick="togglePw('loginPassword',this)" tabindex="-1"><i class="fa-solid fa-eye"></i></button>
+  </div>
+  <p class="err" id="passwordErr">Please enter your password.</p>
+  <p class="err" id="loginErr" style="margin-top:10px;font-size:13px;"></p>
+
+  <button class="btn" id="loginBtn" onclick="handleLogin()">
+    <span id="loginBtnText">Sign In</span>
+    <div class="spinner" id="loginSpinner"></div>
+  </button>
+
+  <div class="links">Don't have an account? <a href="signup.html">Sign Up</a></div>
+</div>
+<div class="back-home"><a href="landing.html">← Back to Home</a></div>
+
+<script src="api.js"></script>
+<script src="login.js"></script>
+
+</body>
+</html>
