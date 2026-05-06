@@ -34,7 +34,7 @@
       <li onclick="location.href='notes.html'"><i class="fa-solid fa-note-sticky"></i> Notes</li>
       <li onclick="location.href='studytips.html'"><i class="fa-solid fa-lightbulb"></i> Study Tips</li>
       <li onclick="location.href='profile.html'"><i class="fa-solid fa-user"></i> My Profile</li>
-      <li class="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+      <li class="logout" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
     </ul>
   </div>
 
@@ -104,46 +104,48 @@
   </div>
 </div>
 
+
 <!-- ADD TASK MODAL -->
-<div id="modalOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); z-index:999; align-items:center; justify-content:center;">
-  <div style="background:white; border-radius:24px; padding:36px; width:420px; max-width:90vw; box-shadow:0 30px 60px rgba(0,0,0,0.2); animation: popIn 0.3s ease;">
-    <h2 style="color:#1e3c72; margin-bottom:6px;">Add New Task</h2>
-    <p style="color:#aaa; font-size:13px; margin-bottom:24px;">Fill in the details below</p>
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal-box">
+    <h2>Add New Task</h2>
+    <p class="modal-subtext">Fill in the details below</p>
 
-    <label style="font-size:13px; font-weight:600; color:#555;">Task Title</label>
-    <input id="taskTitle" type="text" placeholder="e.g. Math Assignment"
-      style="width:100%; padding:12px; border:2px solid #eef2ff; border-radius:12px; margin:8px 0 16px; font-size:14px; outline:none; font-family:inherit; box-sizing:border-box;">
+    <label>Task Title</label>
+    <input id="taskTitle" type="text" placeholder="e.g. Math Assignment">
 
-    <label style="font-size:13px; font-weight:600; color:#555;">Subject</label>
-    <input id="taskSubject" type="text" placeholder="e.g. Mathematics"
-      style="width:100%; padding:12px; border:2px solid #eef2ff; border-radius:12px; margin:8px 0 16px; font-size:14px; outline:none; font-family:inherit; box-sizing:border-box;">
+    <label>Subject</label>
+    <input id="taskSubject" type="text" placeholder="e.g. Mathematics">
 
-    <label style="font-size:13px; font-weight:600; color:#555;">Due Date</label>
-    <input id="taskDate" type="date"
-      style="width:100%; padding:12px; border:2px solid #eef2ff; border-radius:12px; margin:8px 0 24px; font-size:14px; outline:none; font-family:inherit; box-sizing:border-box;">
+    <label>Due Date</label>
+    <input id="taskDate" type="date">
 
-    <div style="display:flex; gap:12px;">
-      <button onclick="closeModal()" style="flex:1; padding:13px; border-radius:14px; border:2px solid #eef2ff; background:white; font-size:14px; font-weight:600; cursor:pointer; color:#555; font-family:inherit;">Cancel</button>
-      <button onclick="addTask()" style="flex:1; padding:13px; border-radius:14px; border:none; background:linear-gradient(135deg,#4a6cf7,#2f4ea2); color:white; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; box-shadow:0 8px 20px rgba(74,108,247,0.35);">Add Task</button>
+    <div class="modal-actions">
+      <button onclick="closeModal()" class="btn-cancel">Cancel</button>
+      <button onclick="addTask()" class="btn-primary">Add Task</button>
     </div>
   </div>
 </div>
 
-<style>
-@keyframes popIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to   { transform: scale(1);    opacity: 1; }
-}
-.status {
-  padding: 5px 13px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-}
-.status-completed { background:#d1fae5; color:#065f46; }
-.status-pending   { background:#fff3cd; color:#92400e; }
-.status-missed    { background:#fee2e2; color:#991b1b; }
-</style>
+<!-- LOGOUT MODAL -->
+<div id="logoutModal" class="logout-overlay">
+  <div class="logout-box">
+    
+    <div class="logout-icon">
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </div>
+
+    <h2>Log Out?</h2>
+    <p class="logout-text">Are you sure you want to log out of StudyPlanner?</p>
+
+    <div class="modal-actions">
+      <button onclick="cancelLogout()" class="btn-cancel">Cancel</button>
+      <button onclick="confirmLogout()" class="btn-danger">Log Out</button>
+    </div>
+
+  </div>
+</div>
+
 <audio id="completeSound" src="complete.mpeg" preload="auto"></audio>
 
 <script src="api.js"></script>        
