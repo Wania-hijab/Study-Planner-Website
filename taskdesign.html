@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasks – StudyPlanner</title>
+
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="taskdesign.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="floating-shapes">
+  <span class="shape s1"></span>
+  <span class="shape s2"></span>
+  <span class="shape s3"></span>
+</div>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-image">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="user">
+    </div>
+    <h2>StudyPlanner</h2>
+    <ul class="menu">
+      <li onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i> Dashboard</li>
+      <li class="active"><i class="fa-solid fa-list-check"></i> Tasks</li>
+      <li onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-line"></i> Analytics</li>
+      <li onclick="location.href='notes.html'"><i class="fa-solid fa-note-sticky"></i> Notes</li>
+      <li onclick="location.href='studytips.html'"><i class="fa-solid fa-lightbulb"></i> Study Tips</li>
+      <li onclick="location.href='profile.html'"><i class="fa-solid fa-user"></i> My Profile</li>
+      <li class="logout" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <h1>Tasks</h1>
+        <p>Manage your tasks efficiently 📋</p>
+      </div>
+      <button class="add-btn" onclick="openModal()">
+        <i class="fa-solid fa-plus"></i> Add Task
+      </button>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div class="stats">
+      <div class="card total">
+        <i class="fa-solid fa-layer-group"></i>
+        <h3 id="totalCount">0</h3>
+        <p>Total Tasks</p>
+      </div>
+      <div class="card completed">
+        <i class="fa-solid fa-circle-check"></i>
+        <h3 id="completedCount">0</h3>
+        <p>Completed</p>
+      </div>
+      <div class="card pending">
+        <i class="fa-solid fa-hourglass-half"></i>
+        <h3 id="pendingCount">0</h3>
+        <p>Pending</p>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <div class="search-box">
+        <i class="fa fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search tasks..." oninput="renderTable()">
+      </div>
+      <select class="filter" id="filterSelect" onchange="renderTable()">
+        <option value="all">All Tasks</option>
+        <option value="completed">Completed</option>
+        <option value="pending">Pending</option>
+      </select>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-box">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="taskTableBody"></tbody>
+      </table>
+      <p id="emptyMsg" style="text-align:center;color:#aaa;padding:30px;display:none;">No tasks found.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ADD TASK MODAL -->
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal-box">
+    <h2>Add New Task</h2>
+    <p class="modal-subtext">Fill in the details below</p>
+
+    <label>Task Title</label>
+    <input id="taskTitle" type="text" placeholder="e.g. Math Assignment">
+
+    <label>Subject</label>
+    <input id="taskSubject" type="text" placeholder="e.g. Mathematics">
+
+    <label>Due Date</label>
+    <input id="taskDate" type="date">
+
+    <div class="modal-actions">
+      <button onclick="closeModal()" class="btn-cancel">Cancel</button>
+      <button onclick="addTask()" class="btn-primary">Add Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGOUT MODAL -->
+<div id="logoutModal" class="logout-overlay">
+  <div class="logout-box">
+    
+    <div class="logout-icon">
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </div>
+
+    <h2>Log Out?</h2>
+    <p class="logout-text">Are you sure you want to log out of StudyPlanner?</p>
+
+    <div class="modal-actions">
+      <button onclick="cancelLogout()" class="btn-cancel">Cancel</button>
+      <button onclick="confirmLogout()" class="btn-danger">Log Out</button>
+    </div>
+
+  </div>
+</div>
+
+<audio id="completeSound" src="complete.mpeg" preload="auto"></audio>
+
+<script src="api.js"></script>        
+<script src="theme.js"></script>
+<script src="taskdesign.js"></script>
+
+</body>
+</html>

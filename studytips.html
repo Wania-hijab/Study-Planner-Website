@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Tips StudyPlanner</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="studytips.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="floating-shapes">
+  <span class="shape s1"></span>
+  <span class="shape s2"></span>
+  <span class="shape s3"></span>
+</div>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-image">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="user">
+    </div>
+    <h2>StudyPlanner</h2>
+    <ul class="menu">
+      <li onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i> Dashboard</li>
+      <li onclick="location.href='taskdesign.html'"><i class="fa-solid fa-list-check"></i> Tasks</li>
+      <li onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-line"></i> Analytics</li>
+      <li onclick="location.href='notes.html'"><i class="fa-solid fa-note-sticky"></i> Notes</li>
+      <li class="active"><i class="fa-solid fa-lightbulb"></i> Study Tips</li>
+      <li onclick="location.href='profile.html'"><i class="fa-solid fa-user"></i> My Profile</li>
+      <li class="logout" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <h1>Study Tips &amp; Smart Learning</h1>
+        <p>Boost your productivity with proven techniques ✨</p>
+      </div>
+      <div class="fav-counter" id="favCounter" onclick="filterFavourites()" title="Click to show favourites">
+        <i class="fa-solid fa-bookmark"></i>
+        <span id="favCount">0</span> saved
+      </div>
+    </div>
+
+    <!-- FEATURED / TIP OF THE DAY -->
+    <div class="featured">
+      <div class="overlay">
+        <div class="tip-day-label"><i class="fa-solid fa-sun"></i> Tip of the Day</div>
+        <h2 id="todayTipTitle"></h2>
+        <p id="todayTipBody"></p>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+      <i class="fa fa-search" style="color:#aaa;flex-shrink:0;"></i>
+      <input type="text" id="searchInput" placeholder="Search tips…" oninput="applyFilters()">
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters" id="filters">
+      <button class="active" data-cat="all">All</button>
+      <button data-cat="focus"><i class="fa-solid fa-brain"></i> Focus</button>
+      <button data-cat="time"><i class="fa-solid fa-clock"></i> Time</button>
+      <button data-cat="memory"><i class="fa-solid fa-layer-group"></i> Memory</button>
+      <button data-cat="exams"><i class="fa-solid fa-file-pen"></i> Exams</button>
+      <button data-cat="motivation"><i class="fa-solid fa-fire"></i> Motivation</button>
+      <button data-cat="favourites" id="favFilterBtn"><i class="fa-solid fa-bookmark"></i> Saved</button>
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div id="emptyState" style="display:none;text-align:center;padding:60px 20px;color:#bbb;">
+      <i class="fa-solid fa-magnifying-glass" style="font-size:48px;opacity:0.2;margin-bottom:16px;display:block;"></i>
+      <p style="font-size:16px;">No tips found. Try a different search or filter.</p>
+    </div>
+
+    <!-- TIPS SECTIONS rendered by JS -->
+    <div id="tipsContainer"></div>
+
+  </div>
+</div>
+
+<!-- EXPAND MODAL -->
+<div id="expandModal" class="modal-overlay" style="display:none;" onclick="closeModal(event)">
+  <div class="expand-box">
+    <button class="modal-close" onclick="closeExpandModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-tag" id="modalTag"></div>
+    <div class="modal-icon" id="modalIcon"></div>
+    <h2 id="modalTitle"></h2>
+    <p id="modalShort" class="modal-short"></p>
+    <div class="modal-divider"></div>
+    <div id="modalDetail" class="modal-detail"></div>
+    <button class="modal-fav-btn" id="modalFavBtn" onclick="toggleFavFromModal()">
+      <i class="fa-solid fa-bookmark"></i> <span id="modalFavLabel">Save Tip</span>
+    </button>
+  </div>
+</div>
+
+<!-- LOGOUT CONFIRMATION MODAL -->
+<div id="logoutModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); backdrop-filter:blur(5px); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:white; border-radius:24px; padding:36px; width:380px; max-width:90vw; box-shadow:0 30px 60px rgba(0,0,0,0.2); animation:popIn 0.3s ease; text-align:center;">
+    <div style="width:56px; height:56px; border-radius:50%; background:#fee2e2; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+      <i class="fa-solid fa-right-from-bracket" style="color:#e74c3c; font-size:22px;"></i>
+    </div>
+    <h2 style="margin:0 0 8px; color:#1e3c72; font-size:20px;">Log Out?</h2>
+    <p style="color:#aaa; font-size:14px; margin:0 0 28px;">Are you sure you want to log out of StudyPlanner?</p>
+    <div style="display:flex; gap:12px;">
+      <button onclick="cancelLogout()" style="flex:1; padding:13px; border-radius:14px; border:2px solid #eef2ff; background:white; font-size:14px; font-weight:600; cursor:pointer; color:#555; font-family:inherit; transition:0.2s;" onmouseover="this.style.borderColor='#4a6cf7'" onmouseout="this.style.borderColor='#eef2ff'">Cancel</button>
+      <button onclick="confirmLogout()" style="flex:1; padding:13px; border-radius:14px; border:none; background:linear-gradient(135deg,#e74c3c,#c0392b); color:white; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; box-shadow:0 8px 20px rgba(231,76,60,0.35); transition:0.2s;">Log Out</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── EXTRA STYLES ───────────────────────────────────────── -->
+<style>
+.sidebar-image { display: flex; justify-content: center; margin-bottom: 15px; }
+.sidebar h2 { font-weight: 800; margin-bottom: 30px; text-align: center; }
+/* TOPBAR ROW */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+/* FAV COUNTER BADGE */
+.fav-counter {
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg,#4a6cf7,#2f4ea2);
+  color: white; padding: 10px 18px; border-radius: 14px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(74,108,247,0.3); transition: 0.25s;
+  white-space: nowrap;
+}
+.fav-counter:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(74,108,247,0.4); }
+
+/* FEATURED */
+.featured {
+  border-radius: 20px;
+  background: url("https://images.unsplash.com/photo-1513258496099-48168024aec0") center/cover;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+.overlay {
+  background: linear-gradient(120deg,rgba(30,60,114,0.82),rgba(42,82,152,0.72));
+  color: white; padding: 32px 36px; min-height: 160px;
+}
+.tip-day-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; opacity: 0.8; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 7px;
+}
+.overlay h2 { margin: 0 0 8px; font-size: 22px; }
+.overlay p  { margin: 0; font-size: 15px; opacity: 0.9; max-width: 600px; }
+
+/* SEARCH */
+.search-box {
+  display: flex; align-items: center; gap: 12px;
+  background: white; padding: 13px 18px; border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07); margin-bottom: 16px;
+}
+.search-box input {
+  border: none; outline: none; font-size: 14px;
+  font-family: inherit; width: 100%; background: transparent; color: #333;
+}
+
+/* FILTERS */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.filters button {
+  padding: 9px 16px; border: 2px solid #e5e9ff; border-radius: 12px;
+  background: white; cursor: pointer; font-size: 14px; font-weight: 500;
+  font-family: "Segoe UI", sans-serif; color: #374151; transition: 0.22s;
+  display: flex; align-items: center; gap: 6px;
+}
+.filters button:hover { border-color: #4a6cf7; color: #4a6cf7; }
+.filters button.active { background: #4a6cf7; color: white; border-color: #4a6cf7; }
+#favFilterBtn.active { background: linear-gradient(135deg,#f39c12,#d87d0d); border-color:#f39c12; }
+
+/* SECTION TITLE */
+.section-title {
+  font-size: 20px; font-weight: 700; color: #1e3c72;
+  margin: 28px 0 14px; display: flex; align-items: center; gap: 10px;
+  font-family: "Segoe UI", sans-serif;
+}
+.section-title::after {
+  content: ""; flex: 1; height: 2px;
+  background: linear-gradient(90deg,#e5e9ff,transparent); border-radius: 4px;
+}
+
+/* TIPS GRID */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+/* TIP CARD */
+.tip-card {
+  padding: 24px; border-radius: 18px; cursor: pointer;
+  transition: all 0.3s ease; position: relative; overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  border: 1px solid rgba(255,255,255,0.6);
+  font-family: "Segoe UI", sans-serif;
+}
+.tip-card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(0,0,0,0.12); }
+
+/* shine sweep */
+.tip-card::before {
+  content: ""; position: absolute; top: 0; left: -70%; width: 50%; height: 100%;
+  background: linear-gradient(120deg,transparent,rgba(255,255,255,0.5),transparent);
+  transform: skewX(-20deg); transition: 0.7s; pointer-events: none;
+}
+.tip-card:hover::before { left: 120%; }
+
+.tip-card i.card-icon {
+  font-size: 24px; margin-bottom: 10px; display: block; transition: 0.3s;
+}
+.tip-card:hover i.card-icon { transform: scale(1.2) rotate(6deg); }
+.tip-card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 800; color: #1e3c72; }
+.tip-card p  { margin: 0; font-size: 13px; color: #374151; line-height: 1.55; }
+
+/* CARD ACTIONS */
+.card-actions {
+  display: flex; justify-content: flex-end; align-items: center;
+  gap: 8px; margin-top: 14px;
+}
+.card-btn {
+  width: 32px; height: 32px; border-radius: 10px; border: none;
+  background: rgba(255,255,255,0.5); cursor: pointer; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  transition: 0.2s; color: #555; backdrop-filter: blur(4px);
+}
+.card-btn:hover { background: rgba(255,255,255,0.8); color: #4a6cf7; }
+.card-btn.fav-active { color: #f39c12; background: rgba(255,255,255,0.7); }
+
+/* CARD COLORS — muted to match site aesthetic */
+.blue   { background: linear-gradient(135deg,#dbeafe,#bfdbfe); }
+.purple { background: linear-gradient(135deg,#ede9fe,#ddd6fe); }
+.violet { background: linear-gradient(135deg,#f3e8ff,#e9d5ff); }
+.rose   { background: linear-gradient(135deg,#ffe4e6,#fecdd3); }
+.green  { background: linear-gradient(135deg,#dcfce7,#bbf7d0); }
+.orange { background: linear-gradient(135deg,#ffedd5,#fed7aa); }
+
+/* MODAL OVERLAY */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px); z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.expand-box {
+  background: white; border-radius: 24px; padding: 40px;
+  width: 540px; max-width: 95vw; max-height: 88vh; overflow-y: auto;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+  animation: popIn 0.28s ease; position: relative;
+  font-family: "Segoe UI", sans-serif;
+}
+@keyframes popIn { from{transform:scale(0.88);opacity:0;} to{transform:scale(1);opacity:1;} }
+
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: #f0f4ff; border: none; width: 34px; height: 34px;
+  border-radius: 10px; cursor: pointer; font-size: 15px; color: #555;
+  display: flex; align-items: center; justify-content: center; transition: 0.2s;
+}
+.modal-close:hover { background: #fee2e2; color: #e74c3c; }
+
+.modal-tag {
+  display: inline-block; padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 14px; background: #eef2ff; color: #4a6cf7;
+}
+.modal-icon { font-size: 36px; margin-bottom: 12px; }
+.expand-box h2 { margin: 0 0 8px; color: #111827; font-size: 22px; font-weight: 700; }
+.modal-short { color: #4b5563; font-size: 15px; margin: 0; }
+.modal-divider { height: 1px; background: #eef2ff; margin: 20px 0; }
+.modal-detail { font-size: 14px; line-height: 1.85; color: #1f2937; }
+.modal-detail ul { padding-left: 20px; margin: 10px 0; }
+.modal-detail li { margin-bottom: 8px; }
+.modal-detail strong { color: #111827; }
+
+.modal-fav-btn {
+  margin-top: 24px; width: 100%; padding: 14px;
+  border-radius: 14px; border: 2px solid #4a6cf7;
+  background: white; color: #4a6cf7; font-size: 14px; font-weight: 700;
+  font-family: inherit; cursor: pointer; transition: 0.22s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.modal-fav-btn:hover, .modal-fav-btn.active {
+  background: linear-gradient(135deg,#4a6cf7,#2f4ea2); color: white; border-color: transparent;
+}
+.modal-fav-btn.fav-saved {
+  background: linear-gradient(135deg,#f39c12,#d87d0d); color: white; border-color: transparent;
+}
+
+@media (max-width: 900px) { .tips-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 600px) { .tips-grid { grid-template-columns: 1fr; } .topbar { flex-direction: column; gap: 12px; } }
+</style>
+
+<script src="api.js"></script>        
+<script src="theme.js"></script>
+<script src="studytips.js"></script>
+<script>
+async function handleLogout() {
+    document.getElementById('logoutModal').style.display = 'flex';
+}
+async function confirmLogout() {
+    document.getElementById('logoutModal').style.display = 'none';
+    await Auth.logout();
+    Session.clear();
+    location.href = 'login.html';
+}
+function cancelLogout() {
+    document.getElementById('logoutModal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
