@@ -4,17 +4,13 @@ body {
     background: linear-gradient(120deg, #eef2ff, #f8faff);
 }
 
-/* =========================
-   LAYOUT 
-========================= */
+/*LAYOUT  */
 .dashboard {
     display: flex;
     min-height: 100vh;
 }
 
-/* =========================
-   SIDEBAR 
-========================= */
+/* SIDEBAR */
 .sidebar {
     width: 240px;
     background: linear-gradient(180deg, #1e3c72, #2a5298);
@@ -28,6 +24,12 @@ body {
   font-weight: 800;
   margin-bottom: 30px;
   text-align: center;
+}
+
+.sidebar-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
 }
 
 .sidebar-image img {
@@ -70,17 +72,13 @@ body {
     color: #ffdede;
 }
 
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 .main {
     flex: 1;
     padding: 28px;
 }
 
-/* =========================
-   TOPBAR 
-========================= */
+/* TOPBAR  */
 .topbar {
     display: flex;
     justify-content: space-between;
@@ -110,9 +108,7 @@ body {
     font-size: 14px;
 }
 
-/* =========================
-   🔥 ADD TASK BUTTON 
-========================= */
+/*ADD TASK BUTTON*/
 .add-btn {
     padding: 14px 30px;
     font-size: 15px;
@@ -151,9 +147,7 @@ body {
     left: 130%;
 }
 
-/* =========================
-   STATS CARDS
-========================= */
+/* STATS CARDS  */
 .stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -212,7 +206,7 @@ body {
     opacity: 0.85;
 }
 
-/* COLORS */
+/* COLORS  */
 .total {
     background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
     color: #1e3c72;
@@ -231,9 +225,7 @@ body {
 }
 .pending::before { background: #f97316; }
 
-/* =========================
-   CONTROLS 
-========================= */
+/* CONTROLS */
 .controls {
     display: flex;
     gap: 15px;
@@ -262,9 +254,23 @@ body {
     border: none;
 }
 
-/* =========================
-   TABLE
-========================= */
+.edit {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #3b82f6; /* blue */
+}
+
+.edit:hover {
+    transform: scale(1.15);
+    background: #2563eb;
+}
+
+/* TABLE */
 .table-box {
     background: white;
     padding: 25px;
@@ -340,9 +346,7 @@ tr:hover {
     background: #dc2626;
 }
 
-/* =========================
-   FLOATING BACKGROUND SHAPES
-========================= */
+/* FLOATING BACKGROUND SHAPES */
 .floating-shapes {
     position: fixed;
     top: 0;
@@ -390,6 +394,171 @@ tr:hover {
     animation-duration: 18s;
 }
 
+/* =========================
+   MODAL OVERLAY
+========================= */
+.modal-overlay,
+.logout-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-overlay {
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+}
+
+/* =========================
+   MODAL BOX
+========================= */
+.modal-box {
+    background: white;
+    border-radius: 24px;
+    padding: 36px;
+    width: 420px;
+    max-width: 90vw;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+    animation: popIn 0.3s ease;
+}
+
+.modal-box h2 {
+    color: #1e3c72;
+    margin-bottom: 6px;
+}
+
+.modal-subtext {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 24px;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.modal-box label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eef2ff;
+    border-radius: 12px;
+    margin: 8px 0 16px;
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-cancel {
+    flex: 1;
+    padding: 13px;
+    border-radius: 14px;
+    border: 2px solid #eef2ff;
+    background: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+}
+
+.btn-primary {
+    flex: 1;
+    padding: 13px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg,#4a6cf7,#2f4ea2);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(74,108,247,0.35);
+}
+
+/* =========================
+   LOGOUT BOX
+========================= */
+.logout-box {
+    background: white;
+    border-radius: 24px;
+    padding: 36px;
+    width: 380px;
+    max-width: 90vw;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+    animation: popIn 0.3s ease;
+    text-align: center;
+}
+
+.logout-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #fee2e2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.logout-icon i {
+    color: #e74c3c;
+    font-size: 22px;
+}
+
+.logout-text {
+    color: #aaa;
+    font-size: 14px;
+    margin: 0 0 28px;
+}
+
+/* =========================
+   DANGER BUTTON
+========================= */
+.btn-danger {
+    flex: 1;
+    padding: 13px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg,#e74c3c,#c0392b);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(231,76,60,0.35);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+.status {
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.status-completed { background:#d1fae5; color:#065f46; }
+.status-pending   { background:#fff3cd; color:#92400e; }
+.status-missed    { background:#fee2e2; color:#991b1b; }
+
+
 /* floating animation */
 @keyframes float {
     0% {
@@ -411,7 +580,7 @@ tr:hover {
     color: #111111 !important;
 }
 
-/* numbers */
+/* numbers (important for 2, 0 etc.) */
 [data-theme="dark"] .card h2,
 [data-theme="dark"] .card span {
     color: #111111 !important;
