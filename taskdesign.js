@@ -1,5 +1,7 @@
-const hoverSound   = new Audio('hover.mpeg');   hoverSound.volume   = 0.15;
-const successSound = new Audio('complete.mpeg'); successSound.volume = 1;
+const hoverSound   = new Audio('hover.mpeg');   
+hoverSound.volume   = 0.15;
+const successSound = new Audio('complete.mpeg'); 
+successSound.volume = 1;
 let lastHoverTime  = 0;
 
 function playHoverSound() {
@@ -20,6 +22,9 @@ function closeModal() {
     ['taskTitle', 'taskSubject', 'taskDate'].forEach(id => {
         document.getElementById(id).value = '';
     });
+
+    //reset editing state
+    editingId = null;
 }
 document.getElementById('modalOverlay').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
@@ -39,12 +44,13 @@ function formatDate(dateStr) {
     return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-// ── IN-MEMORY TASK CACHE ─────────────
-// We keep tasks in memory so the table re-renders instantly
-// without a round-trip after every action.
+
 let taskCache = [];
 
-// ── LOAD ALL TASKS FROM SERVER ───────
+// track editing task
+let editingId = null;
+
+
 async function loadTasks() {
     const res = await Tasks.getAll();
     if (!res || !res.success) return;
@@ -52,7 +58,7 @@ async function loadTasks() {
     renderTable();
 }
 
-// ── ADD TASK ──────
+// ADD / UPDATE TASK
 async function addTask() {
     const title   = document.getElementById('taskTitle').value.trim();
     const subject = document.getElementById('taskSubject').value.trim();
@@ -60,21 +66,51 @@ async function addTask() {
 
     if (!title || !subject || !date) { alert('Please fill in all fields.'); return; }
 
+    // UPDATE MODE
+    if (editingId !== null) {
+        const task = taskCache.find(t => t.id === editingId);
+        if (!task) return;
+
+        task.title = title;
+        task.subject = subject;
+        task.date = date;
+
+        await Tasks.update(editingId, { title, subject, date });
+
+        editingId = null;
+        closeModal();
+        renderTable();
+        return;
+    }
+
+    // ADD MODE 
     const res = await Tasks.create({ title, subject, date });
     if (!res || !res.success) { alert('Could not add task.'); return; }
 
-    taskCache.unshift(res.task);   // add to top of cache
+    taskCache.unshift(res.task);
     closeModal();
     renderTable();
 }
 
-// ── COMPLETE / UN-COMPLETE ────────────────────────────────────
+// EDIT TASK
+function editTask(id) {
+    const task = taskCache.find(t => t.id === id);
+    if (!task) return;
+
+    document.getElementById('taskTitle').value = task.title;
+    document.getElementById('taskSubject').value = task.subject;
+    document.getElementById('taskDate').value = task.date;
+
+    editingId = id;
+    openModal();
+}
+
+// COMPLETE/UNCOMPLETE TASK
 async function completeTask(id) {
     const task      = taskCache.find(t => t.id === id);
     if (!task) return;
     const newStatus = task.status === 'completed' ? 'pending' : 'completed';
 
-    // Optimistic update (instant UI)
     task.status      = newStatus;
     task.completedAt = newStatus === 'completed' ? new Date().toISOString() : null;
     renderTable();
@@ -84,18 +120,17 @@ async function completeTask(id) {
         successSound.play().catch(() => {});
     }
 
-    // Persist to server
     await Tasks.update(id, { status: newStatus });
 }
 
-// ── DELETE TASK ───────────────────────────────────────────────
+// DELETE TASK
 async function deleteTask(id) {
     taskCache = taskCache.filter(t => t.id !== id);
     renderTable();
     await Tasks.delete(id);
 }
 
-// ── RENDER TABLE ──────────────────────────────────────────────
+// RENDER TABLE
 function renderTable() {
     const search    = document.getElementById('searchInput').value.toLowerCase();
     const filterVal = document.getElementById('filterSelect').value;
@@ -142,11 +177,27 @@ function renderTable() {
                 <button class="delete" title="Delete Task" onclick="deleteTask(${task.id})">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
+                <button class="edit" title="Edit Task" onclick="editTask(${task.id})">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
             </td>`;
         tbody.appendChild(tr);
     });
 }
 
-// ── INIT ──────────────────────────────────────────────────────
+async function handleLogout() {
+    document.getElementById('logoutModal').style.display = 'flex';
+}
+async function confirmLogout() {
+    document.getElementById('logoutModal').style.display = 'none';
+    await Auth.logout();
+    Session.clear();
+    location.href = 'login.html';
+}
+function cancelLogout() {
+    document.getElementById('logoutModal').style.display = 'none';
+}
+
+// INIT
 loadTasks();
 window.addEventListener('focus', loadTasks);
