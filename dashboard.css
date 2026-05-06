@@ -1,0 +1,400 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(120deg, #eef2ff, #f8faff);
+}
+
+/* LAYOUT */
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+  background: linear-gradient(180deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 25px;
+    min-height: 100vh;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.08);
+}
+
+/* IMAGE */
+.sidebar-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.sidebar-image img {
+    width: 75px;
+    border-radius: 50%;
+    background: white;
+    padding: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.logo {
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* MENU */
+.menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.menu li:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateX(5px);
+}
+
+.menu .active {
+    background: white;
+    color: #2f4ea2;
+}
+
+.logout {
+    margin-top: 30px;
+    color: #ffdede;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    padding: 25px;
+}
+
+/* TOPBAR */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.topbar h1 {
+    margin: 0;
+    position: relative;
+      color: #1e3c72;
+}
+
+.topbar h1::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background: linear-gradient(90deg, #4a6cf7, #2f4ea2);
+    border-radius: 10px;
+}
+
+.topbar p {
+    color: gray;
+    font-size: 14px;
+}
+
+/* SEARCH */
+.search-box {
+    background: white;
+    padding: 10px 15px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    padding: 22px;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* OLD PATTERN */
+.card::before {
+    content: "";
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    top: -30%;
+    left: -30%;
+    background: rgba(255,255,255,0.08);
+    transform: rotate(25deg);
+}
+
+/* SHINE */
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: rgba(255,255,255,0.18);
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+.card:hover::after {
+    left: 130%;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* 🔥 ICONS UPGRADE */
+.card i {
+    font-size: 20px;
+    margin-bottom: 10px;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(8px);
+
+    box-shadow: 
+        inset 0 2px 6px rgba(255,255,255,0.4),
+        0 4px 10px rgba(0,0,0,0.15);
+
+    transition: 0.3s;
+}
+
+/* hover pop */
+.card:hover i {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.blue { background: linear-gradient(135deg,#4a6cf7,#2f4ea2); }
+.green { background: linear-gradient(135deg,#2ecc71,#1e9c55); }
+.orange { background: linear-gradient(135deg,#f39c12,#d87d0d); }
+.purple { background: linear-gradient(135deg,#8e44ad,#6c3483); }
+
+/* CONTENT */
+.content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.row-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* BOX */
+.box {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    padding: 22px;
+    border-radius: 20px;
+    box-shadow: 
+        0 10px 25px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+    transition: all 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-6px);
+}
+
+/* PROGRESS */
+.progress-bar {
+    height: 12px;
+    background: #e5e9ff;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 75%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        #2ecc71,
+        #2ecc71 10px,
+        #27ae60 10px,
+        #27ae60 20px
+    );
+    animation: progressMove 1s linear infinite;
+}
+
+@keyframes progressMove {
+    from { background-position: 0 0; }
+    to { background-position: 40px 0; }
+}
+
+/* TIMER */
+.timer {
+    text-align: center;
+}
+
+.timer button {
+    padding: 14px;
+    border-radius: 50%;
+    border: none;
+    background: #4a6cf7;
+    color: white;
+    cursor: pointer;
+}
+
+/* CALENDAR */
+.calendar .days,
+.calendar .dates {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    gap: 10px;
+}
+
+.calendar span {
+    padding: 12px;
+    background: #eef2ff;
+    border-radius: 14px;
+}
+
+.calendar .active {
+    background: linear-gradient(135deg,#4a6cf7,#2f4ea2);
+    color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .content { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .dashboard { flex-direction: column; }
+    .sidebar { width: 100%; text-align: center; }
+    .cards { grid-template-columns: 1fr; }
+}
+
+/* =========================
+   FLOATING BACKGROUND SHAPES
+========================= */
+.floating-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* base shape style */
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    animation: float 10s infinite ease-in-out;
+}
+
+/* individual shapes */
+.s1 {
+    width: 220px;
+    height: 220px;
+    background: #4a6cf7;
+    top: 10%;
+    left: 5%;
+    animation-duration: 12s;
+}
+
+.s2 {
+    width: 180px;
+    height: 180px;
+    background: #22c55e;
+    top: 20%;
+    right: 10%;
+    animation-duration: 15s;
+}
+
+.s3 {
+    width: 250px;
+    height: 250px;
+    background: #a855f7;
+    bottom: 10%;
+    left: 20%;
+    animation-duration: 18s;
+}
+
+/* floating animation */
+@keyframes float {
+    0% {
+        transform: translateY(0px) translateX(0px);
+    }
+    50% {
+        transform: translateY(-25px) translateX(20px);
+    }
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+}
+
+/* =========================
+   DARK MODE — deferred to theme.css
+   Only the day-header row (S M T W T F S) needs overriding here
+========================= */
+
+/* Calendar day-name header cells only — NOT the date cells */
+[data-theme="dark"] .calendar .days span {
+    background: #2a2a45;
+    color: #8888aa;
+}
+[data-theme="dark"] .calendar span {
+    padding: 12px;
+    background: #2a2a45;
+    border-radius: 14px;
+}
