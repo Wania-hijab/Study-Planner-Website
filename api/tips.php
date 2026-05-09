@@ -46,6 +46,7 @@ if ($method === 'GET') {
         'SELECT id, title, subject, due_date, status, completed_at, created_at
          FROM tasks
          WHERE user_id = ?
+         ORDER BY created_at DESC'
     );
     $stmt->bind_param('i', $userId);
     $stmt->execute();
