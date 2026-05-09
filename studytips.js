@@ -1,4 +1,3 @@
-// ── TIP DATA () ──────
 const TIPS = [
   // FOCUS
   {
@@ -87,7 +86,7 @@ const TIPS = [
     short:'Assign specific hours of the day to specific subjects — treat them like appointments.',
     detail:`<p>Time blocking prevents the feeling of "I studied all day but got nothing done."</p>
     <ul>
-      <li>Block 9-11am for your hardest subject when your energy is highest.</li>
+      <li>Block 9–11am for your hardest subject when your energy is highest.</li>
       <li>Reserve evenings for lighter review or reading.</li>
       <li>Include buffer blocks for unexpected tasks.</li>
       <li>Protect your blocked time fiercely — reschedule, don't cancel.</li>
@@ -233,8 +232,7 @@ const SECTION_META = {
     motivation: { emoji:'🔥', label:'Motivation & Mindset' }
 };
 
-// ── FAVOURITES STATE ───────────────────────────────────────────
-// Loaded from DB on init, kept in memory for instant UI response
+// FAVOURITES STATE 
 let favSet = new Set();
 
 async function loadFavs() {
@@ -262,7 +260,7 @@ function updateFavCounter() {
     document.getElementById('favCount').textContent = favSet.size;
 }
 
-// ── TIP OF THE DAY ─────────────────────────────────────────────
+// TIP OF THE DAY
 function setTipOfDay() {
     const idx = Math.floor(Date.now() / 86400000) % TIPS.length;
     const tip = TIPS[idx];
@@ -270,7 +268,7 @@ function setTipOfDay() {
     document.getElementById('todayTipBody').textContent  = tip.short;
 }
 
-// ── FILTER STATE ───────────────────────────────────────────────
+// FILTER STATE
 let activeCategory = 'all';
 
 document.getElementById('filters').addEventListener('click', e => {
@@ -289,7 +287,7 @@ function filterFavourites() {
     applyFilters();
 }
 
-// ── RENDER TIPS ────────────────────────────────────────────────
+// RENDER TIPS
 function applyFilters() {
     const search = document.getElementById('searchInput').value.toLowerCase();
 
@@ -359,7 +357,7 @@ async function toggleFavCard(id, btn) {
     if (activeCategory === 'favourites' && !saved) applyFilters();
 }
 
-// ── EXPAND MODAL ───────────────────────────────────────────────
+// EXPAND MODAL
 let openTipId = null;
 
 function openModal(id) {
@@ -403,7 +401,7 @@ async function toggleFavFromModal() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeExpandModal(); });
 
-// ── INIT ───────────────────────────────────────────────────────
+// INIT
 async function init() {
     setTipOfDay();
     await loadFavs();   // load saved tips from DB first
@@ -412,3 +410,19 @@ async function init() {
 
 init();
 
+
+// LOGOUT
+async function handleLogout() {
+    document.getElementById('logoutModal').style.display = 'flex';
+}
+
+async function confirmLogout() {
+    document.getElementById('logoutModal').style.display = 'none';
+    await Auth.logout();
+    Session.clear();
+    location.href = 'login.html';
+}
+
+function cancelLogout() {
+    document.getElementById('logoutModal').style.display = 'none';
+}

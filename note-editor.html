@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Note Editor - StudyPlanner</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="note-editor.css">
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="editor-nav">
+  <div class="nav-left">
+    <button class="back-btn" onclick="goBack()">
+      <i class="fa-solid fa-arrow-left"></i> Notes
+    </button>
+    <div class="nav-meta">
+      <h2 id="navTitle">Loading…</h2>
+      <small id="navSubject"></small>
+    </div>
+  </div>
+  <div class="nav-right">
+    <span class="autosave-label"><span class="autosave-dot"></span> Autosave on</span>
+    <button class="save-btn" onclick="saveNote()">
+      <i class="fa-solid fa-floppy-disk"></i> Save
+    </button>
+  </div>
+</nav>
+
+<!-- EDITOR -->
+<div class="editor-wrap">
+
+  <!-- PAPER -->
+  <div class="paper">
+
+    <!-- TOOLBAR -->
+    <div class="toolbar" id="toolbar">
+
+      <!-- Font family -->
+      <select class="tb-select" onchange="execCmd('fontName', this.value); this.blur();" title="Font">
+        <option value="Merriweather">Merriweather</option>
+        <option value="Arial">Arial</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Trebuchet MS">Trebuchet</option>
+      </select>
+
+      <!-- Font size -->
+      <select class="tb-select" onchange="execCmd('fontSize', this.value); this.blur();" title="Size">
+        <option value="2">Small</option>
+        <option value="3" selected>Normal</option>
+        <option value="4">Large</option>
+        <option value="5">X-Large</option>
+        <option value="6">Huge</option>
+      </select>
+
+      <div class="tb-divider"></div>
+
+      <!-- Headings -->
+      <select class="tb-select" onchange="applyHeading(this.value); this.blur();" title="Style">
+        <option value="">Paragraph</option>
+        <option value="h1">Heading 1</option>
+        <option value="h2">Heading 2</option>
+        <option value="h3">Heading 3</option>
+      </select>
+
+      <div class="tb-divider"></div>
+
+      <!-- Text style -->
+      <button class="tb-btn" onclick="execCmd('bold')"           title="Bold"><i class="fa-solid fa-bold"></i></button>
+      <button class="tb-btn" onclick="execCmd('italic')"         title="Italic"><i class="fa-solid fa-italic"></i></button>
+      <button class="tb-btn" onclick="execCmd('underline')"      title="Underline"><i class="fa-solid fa-underline"></i></button>
+      <button class="tb-btn" onclick="execCmd('strikeThrough')"  title="Strikethrough"><i class="fa-solid fa-strikethrough"></i></button>
+
+      <div class="tb-divider"></div>
+
+      <!-- Color -->
+      <input class="tb-color" type="color" value="#000000" oninput="execCmd('foreColor', this.value)" title="Text color">
+      <input class="tb-color" type="color" value="#ffff00" oninput="execCmd('hiliteColor', this.value)" title="Highlight">
+
+      <div class="tb-divider"></div>
+
+      <!-- Alignment -->
+      <button class="tb-btn" onclick="execCmd('justifyLeft')"   title="Align Left"><i class="fa-solid fa-align-left"></i></button>
+      <button class="tb-btn" onclick="execCmd('justifyCenter')" title="Center"><i class="fa-solid fa-align-center"></i></button>
+      <button class="tb-btn" onclick="execCmd('justifyRight')"  title="Align Right"><i class="fa-solid fa-align-right"></i></button>
+
+      <div class="tb-divider"></div>
+
+      <!-- Lists -->
+      <button class="tb-btn" onclick="execCmd('insertUnorderedList')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+      <button class="tb-btn" onclick="execCmd('insertOrderedList')"   title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+
+      <div class="tb-divider"></div>
+
+      <!-- Indent -->
+      <button class="tb-btn" onclick="execCmd('outdent')" title="Outdent"><i class="fa-solid fa-outdent"></i></button>
+      <button class="tb-btn" onclick="execCmd('indent')"  title="Indent"><i class="fa-solid fa-indent"></i></button>
+
+      <div class="tb-divider"></div>
+
+      <!-- Insert -->
+      <button class="tb-btn" onclick="insertLink()"         title="Insert Link"><i class="fa-solid fa-link"></i></button>
+      <button class="tb-btn" onclick="insertInlineImage()"  title="Insert Image"><i class="fa-solid fa-image"></i></button>
+      <button class="tb-btn" onclick="insertTable()"        title="Insert Table"><i class="fa-solid fa-table"></i></button>
+      <button class="tb-btn" onclick="execCmd('insertHorizontalRule')" title="Divider"><i class="fa-solid fa-minus"></i></button>
+
+      <div class="tb-divider"></div>
+
+      <!-- Clear -->
+      <button class="tb-btn" onclick="execCmd('removeFormat')" title="Clear Formatting"><i class="fa-solid fa-eraser"></i></button>
+
+    </div><!-- end toolbar -->
+
+    <!-- PAPER HEADER -->
+    <div class="paper-header">
+      <div class="paper-subject" id="paperSubject"></div>
+      <input class="paper-topic" id="paperTopic" placeholder="Topic / Heading…" oninput="scheduleSave()">
+    </div>
+
+    <!-- EDITOR BODY -->
+    <div class="editor-body" id="editorBody"
+      contenteditable="true"
+      data-placeholder="Start writing your notes here…"
+      oninput="onEditorInput()"
+      onkeydown="handleTab(event)">
+    </div>
+
+  </div><!-- end .paper -->
+
+  <!-- SIDE PANEL -->
+  <div class="side-panel">
+
+    <!-- FILE UPLOADS -->
+    <div class="panel-box">
+      <h4><i class="fa-solid fa-paperclip" style="margin-right:6px;color:#4a6cf7;"></i>Attachments</h4>
+
+      <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <div>Drop files here or <strong>click to upload</strong></div>
+        <div style="font-size:11px;margin-top:4px;color:#aaa;">docx · xlsx · pptx · pdf · png · jpg · jpeg</div>
+        <input type="file" id="fileInput" multiple
+          accept=".docx,.xlsx,.xls,.pptx,.ppt,.pdf,.png,.jpg,.jpeg"
+          onchange="handleFileUpload(this.files)">
+      </div>
+
+      <div class="file-list" id="fileList"></div>
+    </div>
+
+    <!-- NOTE INFO -->
+    <div class="panel-box">
+      <h4><i class="fa-solid fa-circle-info" style="margin-right:6px;color:#4a6cf7;"></i>Note Info</h4>
+      <div class="info-row"><span>Subject</span><strong id="infoSubject">—</strong></div>
+      <div class="info-row"><span>Created</span><strong id="infoCreated">—</strong></div>
+      <div class="info-row"><span>Last saved</span><strong id="infoSaved">—</strong></div>
+      <div id="wordCount">0 words · 0 characters</div>
+    </div>
+
+    <!-- QUICK TIPS -->
+    <div class="panel-box" style="font-size:13px;color:#6b7280;line-height:1.7;">
+      <h4><i class="fa-solid fa-keyboard" style="margin-right:6px;color:#4a6cf7;"></i>Shortcuts</h4>
+      <div><kbd>Ctrl+B</kbd> Bold</div>
+      <div><kbd>Ctrl+I</kbd> Italic</div>
+      <div><kbd>Ctrl+U</kbd> Underline</div>
+      <div><kbd>Tab</kbd> Indent</div>
+      <div><kbd>Ctrl+S</kbd> Save</div>
+    </div>
+
+  </div><!-- end side panel -->
+
+</div><!-- end editor-wrap -->
+
+
+
+<script src="api.js"></script>        
+<script src="theme.js"></script>
+<script src="note-editor.js"></script>
+
+</body>
+</html>

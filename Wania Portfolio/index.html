@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated background blobs -->
+  <div class="bg-blobs">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="#hero" class="logo">◆ Portfolio</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certs">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header id="hero" class="hero">
+    <div class="hero-content reveal">
+      <p class="eyebrow">Hello, world 👋</p>
+      <h1>I'm <span class="gradient-text">Wania Hijab</span><br/>a Developer & Builder.</h1>
+      <p class="subtitle">
+        Computer Science student passionate about building meaningful software —
+        from desktop systems to full-stack web platforms.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="Wania CV.jpeg" target="_blank" rel="noopener" class="btn btn-ghost">View My CV</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-card reveal">
+      <div class="avatar">
+        <img src="Wania Picture.jpeg" alt="Wania Hijab" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-fallback').style.display='flex';" />
+        <span class="avatar-fallback">WH</span>
+      </div>
+      <h3>Wania Hijab</h3>
+      <p>Full-Stack Developer</p>
+      <div class="badges">
+        <span>Java</span><span>C++</span><span>Web</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="section reveal">
+    <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a Computer Science student who loves turning ideas into working,
+          polished products. I enjoy working across the stack — designing
+          databases, writing clean object-oriented code, and crafting
+          interfaces that feel good to use.
+        </p>
+        <p>
+          As part of the <strong>Study Planner</strong> team, I helped design
+          a platform to make student life simpler. Outside of coursework, I
+          love exploring new languages, frameworks, and creative side projects.
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat"><h3>4+</h3><p>Projects Built</p></div>
+        <div class="stat"><h3>2</h3><p>Internships</p></div>
+        <div class="stat"><h3>6+</h3><p>Core Skills</p></div>
+        <div class="stat"><h3>4</h3><p>Certifications</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section reveal">
+    <h2 class="section-title">My <span class="gradient-text">Skills</span></h2>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-icon">☕</div><h4>Java</h4><p>Building robust applications with Swing & JFrame.</p></div>
+      <div class="skill-card"><div class="skill-icon">🧩</div><h4>OOP</h4><p>Designing clean, modular, reusable architectures.</p></div>
+      <div class="skill-card"><div class="skill-icon">⚙️</div><h4>C++</h4><p>Systems & performance-oriented programming.</p></div>
+      <div class="skill-card"><div class="skill-icon">🌳</div><h4>Data Structures</h4><p>Trees, graphs, hashing & algorithmic problem solving.</p></div>
+      <div class="skill-card"><div class="skill-icon">🗄️</div><h4>Databases</h4><p>SQL design, normalization & query optimization.</p></div>
+      <div class="skill-card"><div class="skill-icon">🎨</div><h4>Web Designing</h4><p>HTML, CSS, JS — pixel-perfect responsive UIs.</p></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section reveal">
+    <h2 class="section-title">My <span class="gradient-text">Projects</span></h2>
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="project-tag">C++</div>
+        <h3>Library Management System</h3>
+        <p>A console-based system to manage books, members, and borrowing records — built with OOP principles in C++.</p>
+      </article>
+      <article class="project-card">
+        <div class="project-tag">Java • JFrame</div>
+        <h3>Blood Bank Management System</h3>
+        <p>A desktop GUI application that tracks donors, blood inventory, and requests with a clean Swing interface.</p>
+      </article>
+      <article class="project-card">
+        <div class="project-tag">C++</div>
+        <h3>Sign Language Learning Simulator</h3>
+        <p>An interactive simulator that teaches sign language basics through guided lessons and visual feedback.</p>
+      </article>
+      <article class="project-card">
+        <div class="project-tag">HTML • CSS • JS • PHP • SQL</div>
+        <h3>Study Planner Website</h3>
+        <p>A full-stack web platform helping students plan tasks, track progress, and stay productive day-to-day.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section reveal">
+    <h2 class="section-title">My <span class="gradient-text">Experience</span></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">Jun 2024 — Aug 2024</span>
+          <h3>Software Development Intern</h3>
+          <h4>TechNova Solutions</h4>
+          <p>Worked on internal Java tools, built dashboards, and helped optimize SQL queries that reduced report load time by 40%.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">Jan 2025 — Mar 2025</span>
+          <h3>Web Development Intern</h3>
+          <h4>PixelForge Studios</h4>
+          <p>Designed and developed responsive landing pages using HTML, CSS, and JavaScript for client marketing campaigns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certs" class="section reveal">
+    <h2 class="section-title">My <span class="gradient-text">Certifications</span></h2>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-ribbon">★</div>
+        <h4>Java Programming Masterclass</h4>
+        <p>Udemy · 2024</p>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ribbon">★</div>
+        <h4>Database Design & SQL</h4>
+        <p>Coursera · 2024</p>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ribbon">★</div>
+        <h4>Responsive Web Design</h4>
+        <p>freeCodeCamp · 2023</p>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ribbon">★</div>
+        <h4>Data Structures & Algorithms</h4>
+        <p>HackerRank · 2024</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section reveal contact-section">
+    <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+    <p class="contact-sub">Open to internships, collaborations, and interesting projects.</p>
+    <div class="contact-links">
+      <a href="mailto:waniahijabsatti@gmail.com" class="btn btn-primary">✉ Email Me</a>
+      <a href="https://www.linkedin.com/in/wania-hijab" target="_blank" rel="noopener noreferrer" class="btn btn-primary">in LinkedIn</a>
+      <a href="https://github.com/Wania-hijab" target="_blank" rel="noopener noreferrer" class="btn btn-primary">⌨ GitHub</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+  <p>© 2026|Copyrights Reserved</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

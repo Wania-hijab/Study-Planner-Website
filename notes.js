@@ -12,7 +12,7 @@ function getIcon(subject) {
     return CARD_ICONS[key] || CARD_ICONS.default;
 }
 
-// ── IN-MEMORY CACHE ────────────────────────────────────────────
+// IN-MEMORY CACHE
 let noteCache = [];
 
 async function loadNotes() {
@@ -22,7 +22,7 @@ async function loadNotes() {
     renderNotes();
 }
 
-// ── RENDER SUBJECT CARDS ───────────────────────────────────────
+// RENDER SUBJECT CARDS
 function renderNotes() {
     const search = document.getElementById('searchInput').value.toLowerCase();
     const grid   = document.getElementById('notesGrid');
@@ -76,7 +76,7 @@ function renderNotes() {
     }).join('');
 }
 
-// ── NEW NOTE MODAL ─────────────────────────────────────────────
+// NEW NOTE MODAL
 let _openSubject = '';
 
 function openNewNoteModal(prefilledSubject) {
@@ -111,7 +111,7 @@ async function createNote() {
     location.href = `note-editor.html?id=${res.note.id}`;
 }
 
-// ── TOPICS MODAL ──────────────────────────────────────────────
+// TOPICS MODAL
 function openTopicsModal(subject) {
     _openSubject = subject;
     const notes  = noteCache.filter(n => n.subject.trim().toLowerCase() === subject.trim().toLowerCase());
@@ -169,6 +169,22 @@ document.getElementById('newTopic').addEventListener('keydown', e => {
     if (e.key === 'Enter') createNote();
 });
 
-// ── INIT ──────────────────────────────────────────────────────
+// INIT 
 loadNotes();
 window.addEventListener('focus', loadNotes);
+
+// LOGOUT 
+async function handleLogout() {
+    document.getElementById('logoutModal').style.display = 'flex';
+}
+
+async function confirmLogout() {
+    document.getElementById('logoutModal').style.display = 'none';
+    await Auth.logout();
+    Session.clear();
+    location.href = 'login.html';
+}
+
+function cancelLogout() {
+    document.getElementById('logoutModal').style.display = 'none';
+}
