@@ -1,40 +1,4 @@
 <?php
-// ═══════════════════════════════════════════════════════════
-//  tips.php  —  Favourite / bookmark study tips
-//  URL examples:
-//    GET    api/tips.php             → get all saved tip IDs
-//    POST   api/tips.php             → save a tip  { tip_id: 5 }
-//    DELETE api/tips.php?tip_id=5    → remove a saved tip
-// ═══════════════════════════════════════════════════════════
-
-require_once 'C:\xampp\htdocs\PHP\WAD Project Backend\config.php';
-
-$userId = requireAuth();
-$method = $_SERVER['REQUEST_METHOD'];
-
-// ── GET — fetch all saved tip IDs for this user ───────────────
-if ($method === 'GET') {
-    $stmt = $conn->prepare('SELECT tip_id FROM fav_tips WHERE user_id = ?');
-    $stmt->bind_param('i', $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $ids    = [];
-    while ($row = $result->fetch_assoc()) {
-        $ids[] = (int) $row['tip_id'];
-    }
-    $stmt->close();
-    respond(['success' => true, 'favourites' => $ids]);
-}
-
-// ── POST — save a tip ─────────────────────────────────────────
-if ($method === 'POST') {
-    $body  = getBody();
-    $tipId = (int) ($body['tip_id'] ?? 0);
-    if (!$tipId) respond(['success' => false, 'error' => 'tip_id required'], 400);
-
-    // INSERT IGNORE silently skips if the row already exists
-    $stmt = $conn->prepare('INSERT IGNORE INTO fav_tips (user_id, tip_id) VALUES (?, ?)');
-    $stmt->bind_param('ii', $userId, $tipId);
 require_once 'C:\xampp\htdocs\PHP\WAD Project Backend\config.php';
 
 $userId = requireAuth();   // stops here with 401 if not logged in
@@ -46,6 +10,7 @@ if ($method === 'GET') {
         'SELECT id, title, subject, due_date, status, completed_at, created_at
          FROM tasks
          WHERE user_id = ?
+         ORDER BY created_at DESC'
     );
     $stmt->bind_param('i', $userId);
     $stmt->execute();
@@ -150,15 +115,6 @@ if ($method === 'PUT') {
     respond(['success' => true]);
 }
 
-<<<<<<< HEAD
-// ── DELETE — unsave a tip ─────────────────────────────────────
-if ($method === 'DELETE') {
-    $tipId = (int) ($_GET['tip_id'] ?? 0);
-    if (!$tipId) respond(['success' => false, 'error' => 'tip_id required'], 400);
-
-    $stmt = $conn->prepare('DELETE FROM fav_tips WHERE user_id = ? AND tip_id = ?');
-    $stmt->bind_param('ii', $userId, $tipId);
-=======
 // ── DELETE — remove a task ────────────────────────────────────
 if ($method === 'DELETE') {
     $taskId = (int) ($_GET['id'] ?? 0);
@@ -166,7 +122,6 @@ if ($method === 'DELETE') {
 
     $stmt = $conn->prepare('DELETE FROM tasks WHERE id = ? AND user_id = ?');
     $stmt->bind_param('ii', $taskId, $userId);
->>>>>>> 8ac67a94b9ba699f105c72eab17f82a6c54c7b9a
     $stmt->execute();
     $stmt->close();
 

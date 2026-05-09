@@ -30,3 +30,22 @@ window.addEventListener('DOMContentLoaded', () => {
   applyPublicDark();
   document.addEventListener('DOMContentLoaded', applyPublicDark);
 })();
+
+
+function openVideo() {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('demoVideo');
+
+  modal.style.display = 'flex';
+  video.currentTime = 0;
+  video.play();
+}
+
+function closeVideo() {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('demoVideo');
+
+  modal.style.display = 'none';
+  video.pause();
+}
+

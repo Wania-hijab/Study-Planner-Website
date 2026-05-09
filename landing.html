@@ -73,7 +73,9 @@
 
         <div class="cta">
             <button class="btn-primary big" onclick="location.href='signup.html'">Get Started Free</button>
-            <button class="btn-glass" onclick="location.href='dashboard.html'">Live Demo</button>
+           <button class="btn-glass demo-btn" onclick="openVideo()">
+  ▶ Live Demo
+</button>
         </div>
     </div>
 
@@ -235,6 +237,18 @@
   transition:0.25s;">🌙</button>
 
 <script src="landing.js"></script>
+
+<!-- VIDEO MODAL -->
+<div id="videoModal" class="video-modal">
+  <div class="video-content">
+    <span class="close-video" onclick="closeVideo()">&times;</span>
+
+    <video id="demoVideo" controls>
+      <source src="tutorial.mp4" type="video/mp4">
+      Your browser does not support video.
+    </video>
+  </div>
+</div>
 
 </body>
 </html>

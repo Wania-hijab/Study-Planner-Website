@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile – StudyPlanner</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="profile.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="floating-shapes">
+  <span class="shape s1"></span>
+  <span class="shape s2"></span>
+  <span class="shape s3"></span>
+</div>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-image">
+      <img id="sidebarAvatar" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="user">
+    </div>
+    <h2>StudyPlanner</h2>
+    <ul class="menu">
+      <li onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i> Dashboard</li>
+      <li onclick="location.href='taskdesign.html'"><i class="fa-solid fa-list-check"></i> Tasks</li>
+      <li onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-line"></i> Analytics</li>
+      <li onclick="location.href='notes.html'"><i class="fa-solid fa-note-sticky"></i> Notes</li>
+      <li onclick="location.href='studytips.html'"><i class="fa-solid fa-lightbulb"></i> Study Tips</li>
+      <li class="active"><i class="fa-solid fa-user"></i> My Profile</li>
+      <li class="logout" onclick="openLogoutModal()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- X CLOSE BUTTON -->
+    <button onclick="location.href='landing.html'" style="
+      position:fixed;top:18px;right:22px;z-index:9999;
+      width:38px;height:38px;border-radius:50%;border:none;
+      background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);
+      box-shadow:0 4px 14px rgba(0,0,0,0.12);cursor:pointer;
+      font-size:16px;color:#e74c3c;display:flex;align-items:center;
+      justify-content:center;transition:0.2s;"
+      onmouseover="this.style.background='#e74c3c';this.style.color='white'"
+      onmouseout="this.style.background='rgba(255,255,255,0.85)';this.style.color='#e74c3c'">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <h1>My Profile</h1>
+        <p>Manage your account details 👤</p>
+      </div>
+    </div>
+
+    <!-- PROFILE LAYOUT -->
+    <div class="profile-layout">
+
+      <!-- LEFT: AVATAR CARD -->
+      <div class="avatar-card">
+
+        <div class="avatar-wrap">
+          <img id="profileAvatar" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile Picture">
+          <div class="avatar-overlay" onclick="document.getElementById('avatarInput').click()">
+            <i class="fa-solid fa-camera"></i>
+            <span>Change Photo</span>
+          </div>
+          <input type="file" id="avatarInput" accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" style="display:none;" onchange="handleAvatarChange(this)">
+        </div>
+
+        <h2 id="avatarName">Your Name</h2>
+        <p id="avatarUsername" class="avatar-username">@username</p>
+
+        <div class="avatar-divider"></div>
+
+        <!-- DARK MODE TOGGLE -->
+        <div class="dark-mode-row">
+          <div class="dark-mode-label">
+            <i class="fa-solid fa-moon"></i>
+            <span>Dark Mode</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="darkModeToggle" onchange="handleDarkModeToggle(this)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="avatar-divider"></div>
+
+        <button class="save-all-btn" onclick="saveAllFields()">
+          <i class="fa-solid fa-floppy-disk"></i> Save All Changes
+        </button>
+
+        <p class="last-saved" id="lastSavedLabel"></p>
+
+      </div>
+
+      <!-- RIGHT: EDIT FORM -->
+      <div class="form-card">
+
+        <div class="form-section-title">
+          <i class="fa-solid fa-pen-to-square"></i> Personal Information
+        </div>
+
+        <!-- FULL NAME -->
+        <div class="field-group">
+          <label class="field-label">Full Name</label>
+          <div class="field-wrap" id="wrap-fullname">
+            <span class="field-display" id="display-fullname" onclick="startEdit('fullname')">Click to set your full name</span>
+            <input class="field-input" id="input-fullname" type="text" placeholder="e.g. Ahmed Khan" style="display:none;"
+              onblur="finishEdit('fullname')" onkeydown="handleFieldKey(event,'fullname')">
+            <button class="field-edit-btn" onclick="startEdit('fullname')" title="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- USERNAME -->
+        <div class="field-group">
+          <label class="field-label">Username</label>
+          <div class="field-wrap" id="wrap-username">
+            <span class="field-display" id="display-username" onclick="startEdit('username')">Click to set username</span>
+            <input class="field-input" id="input-username" type="text" placeholder="e.g. ahmed_khan" style="display:none;"
+              onblur="finishEdit('username')" onkeydown="handleFieldKey(event,'username')">
+            <button class="field-edit-btn" onclick="startEdit('username')" title="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+          </div>
+          <p class="field-hint">This is the name you use to sign in.</p>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field-group">
+          <label class="field-label">Email Address</label>
+          <div class="field-wrap" id="wrap-email">
+            <span class="field-display" id="display-email" onclick="startEdit('email')">Click to set email</span>
+            <input class="field-input" id="input-email" type="email" placeholder="e.g. ahmed@email.com" style="display:none;"
+              onblur="finishEdit('email')" onkeydown="handleFieldKey(event,'email')">
+            <button class="field-edit-btn" onclick="startEdit('email')" title="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- BIO -->
+        <div class="field-group">
+          <label class="field-label">Bio</label>
+          <div class="field-wrap textarea-wrap" id="wrap-bio">
+            <span class="field-display" id="display-bio" onclick="startEdit('bio')">Click to add a short bio…</span>
+            <textarea class="field-input field-textarea" id="input-bio" placeholder="Tell us a little about yourself…" style="display:none;"
+              onblur="finishEdit('bio')" onkeydown="handleFieldKey(event,'bio')"></textarea>
+            <button class="field-edit-btn" onclick="startEdit('bio')" title="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-section-title" style="margin-top:32px;">
+          <i class="fa-solid fa-lock"></i> Security
+        </div>
+
+        <!-- CURRENT PASSWORD -->
+        <div class="field-group">
+          <label class="field-label">Current Password</label>
+          <div class="field-wrap" id="wrap-currentpw">
+            <span class="field-display" id="display-currentpw" onclick="startEdit('currentpw')">••••••••</span>
+            <input class="field-input" id="input-currentpw" type="password" placeholder="Enter current password" style="display:none;"
+              onblur="finishEdit('currentpw')" onkeydown="handleFieldKey(event,'currentpw')">
+            <button class="field-edit-btn" onclick="startEdit('currentpw')" title="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- NEW PASSWORD -->
+        <div class="field-group">
+          <label class="field-label">New Password</label>
+          <div class="field-wrap" id="wrap-newpw">
+            <span class="field-display" id="display-newpw" onclick="startEdit('newpw')">••••••••</span>
+            <input class="field-input" id="input-newpw" type="password" placeholder="Enter new password" style="display:none;"
+              onblur="finishEdit('newpw')" onkeydown="handleFieldKey(event,'newpw')">
+            <button class="field-edit-btn" onclick="startEdit('newpw')" title="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+          </div>
+          <p class="field-hint">Leave blank to keep your current password.</p>
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div class="field-group">
+          <label class="field-label">Confirm New Password</label>
+          <div class="field-wrap" id="wrap-confirmpw">
+            <span class="field-display" id="display-confirmpw" onclick="startEdit('confirmpw')">••••••••</span>
+            <input class="field-input" id="input-confirmpw" type="password" placeholder="Repeat new password" style="display:none;"
+              onblur="finishEdit('confirmpw')" onkeydown="handleFieldKey(event,'confirmpw')">
+            <button class="field-edit-btn" onclick="startEdit('confirmpw')" title="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- DANGER ZONE -->
+        <div class="danger-zone">
+          <div class="danger-title"><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</div>
+          <p class="danger-desc">This will permanently delete your account and all associated data.</p>
+          <button class="danger-btn" onclick="deleteAccount()" style="border-color:#7f1d1d; color:#7f1d1d;">
+            <i class="fa-solid fa-user-slash"></i> Delete Account
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end main -->
+</div><!-- end dashboard -->
+
+<!-- TOAST NOTIFICATION -->
+<div id="toast" class="toast" style="display:none;"></div>
+
+<script src="api.js"></script>        
+<script src="theme.js"></script>
+<script src="profile.js"></script>
+<script>
+async function handleLogout() {
+    await Auth.logout();
+    Session.clear();
+    location.href = 'login.html';
+}
+</script>
+
+</body>
+</html>
