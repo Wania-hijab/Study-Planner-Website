@@ -223,3 +223,27 @@ window.addEventListener('DOMContentLoaded', () => {
         sessionStorage.removeItem('showWelcome');
     }
 });
+
+// ===== Moved inline event handlers from HTML =====
+
+// Search input listener
+const searchInputField = document.getElementById("searchInputField");
+if (searchInputField) {
+  searchInputField.addEventListener("input", filterRecentTasks);
+}
+
+// Sidebar navigation
+document.querySelectorAll(".nav-link").forEach(item => {
+  item.addEventListener("click", () => {
+    const target = item.getAttribute("data-href");
+    if (target) {
+      location.href = target;
+    }
+  });
+});
+
+// Timer button
+const startPauseButton = document.getElementById("startPauseBtn");
+if (startPauseButton) {
+  startPauseButton.addEventListener("click", toggleTimer);
+}
