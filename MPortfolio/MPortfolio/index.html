@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mahnoor Ahmer — BSCS Student & Developer</title>
+<meta name="description" content="Portfolio of Mahnoor Ahmer — BSCS student and developer building web apps and software projects." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css">
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">Mahnoor<span class="dot">.</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
+          <i class="icon-moon"></i>
+        </button>
+
+        <a href="#contact" class="btn btn-primary btn-sm hide-sm">Hire Me</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero soft-bg">
+    <div class="container hero-grid">
+
+      <div>
+        <p class="eyebrow">I am Mahnoor Ahmer</p>
+
+        <h1 class="hero-title">
+          <span class="text-primary">BSCS Student</span><br/>
+          & Developer.
+        </h1>
+
+        <p class="hero-desc">
+          BSCS student passionate about software development and problem solving.
+          I build web applications and enjoy turning ideas into real, working projects.
+        </p>
+
+        <div class="hero-cta">
+          <a href="cv.pdf" download class="btn btn-primary">
+            Download CV <i class="icon-download"></i>
+          </a>
+
+          <a href="#projects" class="btn btn-outline">
+            View My Work <i class="icon-arrow-up-right"></i>
+          </a>
+        </div>
+
+        <div class="socials">
+          <a href="https://github.com/mahnoorahmer" target="_blank" class="icon-btn">
+            <i class="icon-github"></i>
+          </a>
+
+          <a href="https://linkedin.com/in/mahnoor-ahmer" target="_blank" class="icon-btn">
+            <i class="icon-linkedin"></i>
+          </a>
+
+          <a href="#" class="icon-btn">
+            <i class="icon-twitter"></i>
+          </a>
+
+          <a href="mailto:mahnoorahmer123@gmail.com" class="icon-btn">
+            <i class="icon-mail"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="photo-wrap">
+        <div class="photo-glow"></div>
+
+        <div class="photo-card">
+          <div class="photo-placeholder">
+            <div class="big-emoji">📷</div>
+
+            <p><strong>Add your photo here</strong></p>
+
+            <p class="small">
+              Save image as <code>profile.jpg</code> next to index.html
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container stats">
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-lbl">Years Learning</div>
+      </div>
+
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-lbl">Projects Built</div>
+      </div>
+
+      <div>
+        <div class="stat-num">6+</div>
+        <div class="stat-lbl">Technologies</div>
+      </div>
+
+      <div>
+        <div class="stat-num">4</div>
+        <div class="stat-lbl">Certifications</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section reveal">
+    <div class="container">
+
+      <div class="section-head">
+        <p class="eyebrow">About Me</p>
+        <h2>A little about my journey</h2>
+      </div>
+
+      <div class="about-grid">
+
+        <div class="about-text">
+          <p>
+            I'm <strong>Mahnoor Ahmer</strong>, a Computer Science undergraduate
+            based in Lahore, Pakistan.
+          </p>
+
+          <p>
+            My interests span <strong>web development</strong>,
+            <strong>software engineering</strong>, and
+            <strong>UI/UX</strong>.
+          </p>
+        </div>
+
+        <div class="about-cards">
+
+          <div class="info-card">
+            <i class="icon-graduation-cap"></i>
+            <p class="lbl">Degree</p>
+            <p class="val">BS Computer Science</p>
+          </div>
+
+          <div class="info-card">
+            <i class="icon-briefcase"></i>
+            <p class="lbl">Focus</p>
+            <p class="val">Web & Software Dev</p>
+          </div>
+
+          <div class="info-card">
+            <i class="icon-award"></i>
+            <p class="lbl">Honors</p>
+            <p class="val">Dean's Merit List</p>
+          </div>
+
+          <div class="info-card">
+            <i class="icon-mail"></i>
+            <p class="lbl">Status</p>
+            <p class="val">Open to Internships</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section soft-bg reveal">
+    <div class="container">
+
+      <div class="section-head">
+        <p class="eyebrow">My Skills</p>
+        <h2>Tools I work with</h2>
+      </div>
+
+      <div class="skills-grid" id="skillsGrid"></div>
+
+      <div class="tag-cloud">
+        <span>Java</span>
+        <span>C++</span>
+        <span>Python</span>
+        <span>JavaScript</span>
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>MySQL</span>
+        <span>Git</span>
+        <span>VS Code</span>
+        <span>NetBeans</span>
+        <span>Problem Solving</span>
+        <span>Teamwork</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section reveal">
+    <div class="container">
+
+      <div class="section-head">
+        <p class="eyebrow">What I Do</p>
+        <h2>My quality services</h2>
+      </div>
+
+      <div class="services-grid" id="servicesGrid"></div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section soft-bg reveal">
+    <div class="container">
+
+      <div class="section-head">
+        <p class="eyebrow">My Recent Work</p>
+        <h2>Projects I'm proud of</h2>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid"></div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section reveal">
+    <div class="container">
+
+      <div class="section-head">
+        <p class="eyebrow">My Resume</p>
+        <h2>Experience & Education</h2>
+      </div>
+
+      <div class="resume-grid" id="resumeGrid"></div>
+
+      <h3 class="cert-heading">Certifications & Achievements</h3>
+
+      <div class="cert-grid" id="certGrid"></div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section soft-bg reveal">
+    <div class="container narrow">
+
+      <div class="section-head">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Let's connect!</h2>
+      </div>
+
+      <p class="contact-intro">
+        Open to internships, collaborations, and interesting projects.
+      </p>
+
+      <a href="mailto:mahnoorahmer123@gmail.com" class="contact-row">
+        <div class="contact-ico">
+          <i class="icon-mail"></i>
+        </div>
+
+        <div>
+          <p class="lbl">Email</p>
+          <p class="val">mahnoorahmer123@gmail.com</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    © 2026 Mahnoor Ahmer · Built with care.
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
